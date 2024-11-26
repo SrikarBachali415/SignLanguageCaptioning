@@ -46,15 +46,15 @@ A deep learning-based project that translates live video of Indian Sign Language
 
 
 ## Future Enhancements
--Vocabulary Expansion: Extend the system to recognize more gestures and phrases.
--Graphical User Interface (GUI): Implement a user-friendly interface for non-technical users.
--Optimization: Improve the real-time performance for deployment on low-resource devices.
--Mobile App Integration: Build a mobile application to make the system more portable.
+- Vocabulary Expansion: Extend the system to recognize more gestures and phrases.
+- Graphical User Interface (GUI): Implement a user-friendly interface for non-technical users.
+- Optimization: Improve the real-time performance for deployment on low-resource devices.
+- Mobile App Integration: Build a mobile application to make the system more portable.
 
 ## Usage
--Perform ISL gestures in front of the webcam.
--The system processes the gestures and displays live captions in English.
+- Perform ISL gestures in front of the webcam.
+- The system processes the gestures and displays live captions in English.
 
 ## Challenges and Limitations
--Requires consistent lighting for accurate hand tracking.
--Currently supports a limited vocabulary.
+- Requires consistent lighting for accurate hand tracking.
+- Currently supports a limited vocabulary.
