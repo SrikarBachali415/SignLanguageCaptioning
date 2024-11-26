@@ -31,11 +31,14 @@ A deep learning-based project that translates live video of Indian Sign Language
 
 ## Project Structure
 ```plaintext
-├── mediapipe_models/   # Configurations for hand tracking
-├── lstm_model/         # Pre-trained weights and LSTM model
-├── data/               # Training datasets and annotations
-├── scripts/            # Helper scripts for training and preprocessing
-├── main.py             # Entry point for running the application
+├── Model    # Pre-trained weights and LSTM model
+├   ├── saved_model
+├   ├── accracy_plot
+├   ├── confusion_matrix
+├   ├── training_logs.csv
+├── Test                # Real time testing or video upload testing
+├── Train               # Training the model with data
+├── Dataset             
 ├── requirements.txt    # Python dependencies
 ```
 ## Flow Diagram
