@@ -10,7 +10,7 @@ from sklearn.preprocessing import LabelEncoder
 # Constants
 MAX_SEQUENCE_LENGTH = 150
 FEATURE_DIM = 225
-MODEL_PATH = r"\adjectives_lstm_model_15_2.keras"
+MODEL_PATH = r"Model\saved_model\saved_model.pb"
 OUTPUT_PATH = os.path.join(os.path.expanduser("~"), "Desktop", "isl_prediction_output_v15.avi")
 
 # Mediapipe setup

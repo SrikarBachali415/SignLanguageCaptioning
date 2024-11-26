@@ -10,9 +10,9 @@ from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 import matplotlib.pyplot as plt
 
-# Constants
+# Add dataset path below
 CSV_PATH = "Adjectives_videos.csv"
-MODEL_SAVE_PATH = r"adjectives_lstm_model_15_2.keras"
+MODEL_SAVE_PATH = r"Model\saved_model\saved_model.pb"
 MAX_SEQUENCE_LENGTH = 150  # Fixed frame count per video
 FEATURE_DIM = 225  # Pose (33), left hand (21), right hand (21), all with x, y, z
 
@@ -74,17 +74,46 @@ def extract_features(video_path):
         if right_hand.shape != (21, 3):
             right_hand = np.zeros((21, 3))
 
-        # Combine all landmarks into a single frame feature vector
-        frame_features = np.concatenate([pose.flatten(), left_hand.flatten(), right_hand.flatten()])
-        video_data.append(frame_features)
+        # Combine all landmarks into a single frame dictionary
+        frame_data = {"pose": pose, "left_hand": left_hand, "right_hand": right_hand}
+        video_data.append(frame_data)
 
     holistic.close()
-    
-    # Interpolate missing frames
-    video_data = np.array(video_data)
-    video_data = interpolate_missing_frames(video_data)
-    return video_data
 
+    # Interpolate missing frames
+    for i, frame_data in enumerate(video_data):
+        video_data[i] = interpolate_missing_frames(frame_data)
+
+    # Normalize key points
+    normalized_video_data = []
+    for frame_data in video_data:
+        pose = frame_data["pose"]
+        left_hand = frame_data["left_hand"]
+        right_hand = frame_data["right_hand"]
+
+        # Calculate the center based on pose landmarks 11 and 12
+        center = (pose[11] + pose[12]) / 2 if np.any(pose[11]) and np.any(pose[12]) else np.zeros(3)
+
+        # Translate all landmarks to make the center the origin
+        pose -= center
+        left_hand -= center
+        right_hand -= center
+
+        # Normalize to range [-1, 1] based on the max absolute value per frame
+        max_value = np.max(np.abs(np.concatenate([pose, left_hand, right_hand])))
+        if max_value > 0:  # Avoid division by zero
+            pose /= max_value
+            left_hand /= max_value
+            right_hand /= max_value
+
+        # Store the normalized landmarks in the same structure
+        normalized_video_data.append({
+            "pose": pose,
+            "left_hand": left_hand,
+            "right_hand": right_hand
+        })
+
+    return normalized_video_data
 
 def preprocess_data(csv_path, quick_train=False):
     """Processes dataset, filtering classes with fewer than 18 videos."""
