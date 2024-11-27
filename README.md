@@ -25,9 +25,10 @@ A deep learning-based project that translates live video of Indian Sign Language
 
 ### Installation
 1. Clone the repository:
-   git clone https://github.com/yourusername/isl-captioning.git
-   cd isl-captioning
-2. Ensure your webcam is connected. The system will capture ISL gestures and display captions in real-time.
+   git clone https://github.com/SrkarBachali415/SignLanguageCaptioning.git
+   cd SignLanguageCaptioning/test
+2. Ensure your webcam is connected.
+3. Run the realtime30fps.py . The system will capture ISL gestures and display captions in real-time.
 
 ## Project Structure
 ```plaintext
